@@ -1,0 +1,19 @@
+---
+layout: null
+---
+[
+  {% assign items = "" | split: "" %}
+  {% assign items = items | concat: site.projects %}
+  {% assign items = items | concat: site.docs %}
+  {% assign items = items | concat: site.posts %}
+
+  {% for item in items %}
+  {
+    "url": "{{ item.url | relative_url }}",
+    "title": {{ item.title | jsonify }},
+    "type": "{% if item.collection == 'projects' %}project{% elsif item.collection == 'docs' %}doc{% else %}post{% endif %}",
+    "tags": {{ item.tags | join: ', ' | jsonify }},
+    "content": {{ item.content | strip_html | normalize_whitespace | truncate: 500 | jsonify }}
+  }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+]

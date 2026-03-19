@@ -1,0 +1,53 @@
+---
+layout: default
+title: Documentation
+description: Hardware guides, firmware references, wiring diagrams, and Home Assistant integration setup for Domoriks.
+permalink: /docs/
+---
+
+<div class="max-w-7xl mx-auto px-6 py-24">
+
+  <div class="text-center mb-16">
+    <span class="text-forge-400 font-mono text-sm uppercase tracking-widest">Learn</span>
+    <h1 class="font-display text-5xl font-extrabold mt-2 mb-4">Documentation</h1>
+    <p class="text-zinc-400 max-w-xl mx-auto">{{ page.description }}</p>
+  </div>
+
+  <!-- Quick links grid -->
+  <div class="grid md:grid-cols-3 gap-6 mb-16">
+    {% for section in site.data.nav.docs_sidebar %}
+    <div class="bg-zinc-900 border border-zinc-800 hover:border-forge-700 rounded-2xl p-6 transition-all duration-300 reveal">
+      <h2 class="font-display font-bold text-lg mb-4 text-forge-400">{{ section.title }}</h2>
+      <ul class="space-y-2">
+        {% for item in section.items %}
+        <li>
+          <a href="{{ item.url | relative_url }}" class="flex items-center gap-2 text-zinc-400 hover:text-zinc-100 transition-colors text-sm py-1">
+            <span class="w-1.5 h-1.5 bg-forge-600 rounded-full shrink-0"></span>
+            {{ item.title }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Highlighted entry points -->
+  <h2 class="font-display text-2xl font-bold mb-6 text-zinc-300 reveal">Start here</h2>
+  <div class="grid md:grid-cols-2 gap-5 mb-16">
+    {% for doc in site.docs %}
+    <a href="{{ doc.url | relative_url }}" class="reveal group bg-zinc-900 border border-zinc-800 hover:border-forge-700 rounded-2xl p-6 transition-all duration-300 flex gap-4 items-start">
+      <div class="w-10 h-10 bg-forge-950 border border-forge-800 rounded-xl flex items-center justify-center text-forge-400 text-lg shrink-0 group-hover:bg-forge-900 transition-colors">
+        {{ doc.icon | default: "📄" }}
+      </div>
+      <div>
+        <h3 class="font-display font-bold mb-1 group-hover:text-forge-400 transition-colors">{{ doc.title }}</h3>
+        {% if doc.description %}
+        <p class="text-zinc-500 text-sm leading-relaxed">{{ doc.description }}</p>
+        {% endif %}
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+
+</div>

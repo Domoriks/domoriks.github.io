@@ -1,0 +1,23 @@
+{% comment %}
+Usage: {% include callout.html type="note" title="Note" content="Your text here." %}
+Types: note, warning, tip, danger
+{% endcomment %}
+
+{% assign callout_colors = "note:border-blue-600 bg-blue-950/40 text-blue-300|warning:border-yellow-600 bg-yellow-950/40 text-yellow-300|tip:border-forge-600 bg-forge-950/40 text-forge-300|danger:border-red-600 bg-red-950/40 text-red-300" %}
+{% assign callout_icons = "note:ℹ|warning:⚠|tip:💡|danger:🚨" %}
+
+<div class="my-6 border-l-4 rounded-r-xl px-5 py-4
+  {% if include.type == 'warning' %}border-yellow-400 bg-yellow-800/50
+  {% elsif include.type == 'tip' %}border-forge-300 bg-forge-800/50
+  {% elsif include.type == 'danger' %}border-red-400 bg-red-800/50
+  {% else %}border-blue-400 bg-blue-800/50{% endif %}">
+  <p class="font-display font-semibold text-sm mb-1
+    {% if include.type == 'warning' %}text-yellow-200
+    {% elsif include.type == 'tip' %}text-forge-200
+    {% elsif include.type == 'danger' %}text-red-200
+    {% else %}text-blue-200{% endif %}">
+    {% if include.type == 'warning' %}⚠ {% elsif include.type == 'tip' %}💡 {% elsif include.type == 'danger' %}🚨 {% else %}ℹ {% endif %}
+    {{ include.title | default: include.type | capitalize }}
+  </p>
+  <p class="text-sm text-zinc-300 leading-relaxed">{{ include.content }}</p>
+</div>

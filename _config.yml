@@ -1,0 +1,73 @@
+title: "Domoriks"
+tagline: "Decentralised Home Automation. Open Source."
+description: "Open source decentralised home automation hardware and software. Custom DIN-rail modules, RS-485 bus communication, and seamless Home Assistant integration — no cloud, no lock-in."
+author: "Domoriks Contributors"
+email: "hello@domoriks.com"
+url: "https://domoriks.com"
+baseurl: ""
+
+hero_title: "Home Automation. Your Way."
+hero_subtitle: "Open hardware. Open software. Local-first. Decentralised RS-485 modules that slot into any DIN-rail cabinet and talk natively to Home Assistant."
+
+docs_description: "Everything from hardware schematics and PCB design files to firmware flashing guides and Home Assistant integration setup."
+docs_url: "/docs"
+
+contact_text: "Questions, ideas, hardware contributions, or just want to show off your installation?"
+
+github_username: "domoriks"
+github_repo: "https://github.com/domoriks"
+
+markdown: kramdown
+kramdown:
+  auto_ids: true
+highlighter: rouge
+permalink: /:categories/:title/
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-paginate
+  - jekyll-redirect-from
+  - jekyll-optional-front-matter
+
+paginate: 6
+paginate_path: "/blog/page:num/"
+
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
+  docs:
+    output: true
+    permalink: /docs/:path/
+
+defaults:
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "project"
+  - scope:
+      path: ""
+      type: "docs"
+    values:
+      layout: "doc"
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - README.md
+  - .github
+
+social:
+  name: "Domoriks"
+  links:
+    - https://github.com/domoriks

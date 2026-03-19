@@ -1,0 +1,179 @@
+<header id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+
+    <!-- Logo -->
+    <a href="{{ '/' | relative_url }}" class="flex items-center gap-3 px-3 py-2 rounded-lg transition-all nav-link-idle">
+      <div class="w-8 h-8 nav-active rounded-full flex items-center justify-center font-mono font-bold text-forge-800 text-sm transition-colors">
+        DM
+      </div>
+      <span class="font-display font-bold text-lg tracking-tight">{{ site.title }}</span>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden {% if page.layout == 'doc' %}lg:flex{% else %}md:flex{% endif %} items-center gap-1">
+      {% for item in site.data.nav.main %}
+      {% assign is_active = false %}
+      {% if item.url == '/' %}
+        {% if page.url == '/' %}{% assign is_active = true %}{% endif %}
+      {% elsif item.url == '/docs' %}
+        {% if page.url contains '/docs' %}{% assign is_active = true %}{% endif %}
+      {% elsif item.url == '/blog' %}
+        {% if page.url contains '/blog' or page.layout == 'post' %}{% assign is_active = true %}{% endif %}
+      {% elsif item.url == '/projects' %}
+        {% if page.url contains '/projects' and page.url != '/projects/din-relay-module/' and page.url != '/projects/din-relay-module' %}{% assign is_active = true %}{% endif %}
+      {% else %}
+        {% if page.url == item.url or page.url == item.url | append: '/' or page.url contains item.url | append: '/' %}{% assign is_active = true %}{% endif %}
+      {% endif %}
+      <a href="{{ item.url | relative_url }}"
+         class="px-4 py-2 rounded-lg text-sm transition-all font-body {% if is_active %}nav-active{% else %}text-zinc-400 nav-link-idle{% endif %}">
+        {{ item.title }}
+      </a>
+      {% endfor %}
+    </nav>
+
+    <!-- Right side -->
+    <div class="flex items-center gap-3">
+      <!-- Search trigger -->
+      <button id="search-trigger" aria-label="Search"
+        class="p-2 rounded-lg text-zinc-400 transition-all nav-link-idle">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+      </button>
+
+      <!-- Theme toggle -->
+      <button id="theme-toggle" aria-label="Toggle theme"
+        class="p-2 rounded-lg text-zinc-400 transition-all nav-link-idle">
+        <svg id="icon-moon" class="w-5 h-5 block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+        </svg>
+        <svg id="icon-sun" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+        </svg>
+      </button>
+
+      <!-- GitHub -->
+      <a href="{{ site.github_repo }}" target="_blank"
+         class="hidden {% if page.layout == 'doc' %}lg:flex{% else %}md:flex{% endif %} items-center gap-2 px-4 py-2 rounded-xl text-sm font-mono transition-all nav-link-idle">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+        GitHub
+      </a>
+
+      <!-- Mobile menu button -->
+      <button id="mobile-menu-btn" class="{% if page.layout == 'doc' %}lg:hidden{% else %}md:hidden{% endif %} p-2 rounded-lg hover:bg-zinc-800 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  {% if page.layout != 'doc' %}
+  <!-- Mobile dropdown menu (non-doc pages) -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-zinc-800 bg-zinc-950 px-6 py-4">
+    {% for item in site.data.nav.main %}
+    {% assign is_active = false %}
+    {% if item.url == '/' %}
+      {% if page.url == '/' %}{% assign is_active = true %}{% endif %}
+    {% elsif item.url == '/docs' %}
+      {% if page.url contains '/docs' %}{% assign is_active = true %}{% endif %}
+    {% elsif item.url == '/blog' %}
+      {% if page.url contains '/blog' or page.layout == 'post' %}{% assign is_active = true %}{% endif %}
+    {% elsif item.url == '/projects' %}
+      {% if page.url contains '/projects' and page.url != '/projects/din-relay-module/' and page.url != '/projects/din-relay-module' %}{% assign is_active = true %}{% endif %}
+    {% else %}
+      {% if page.url == item.url or page.url == item.url | append: '/' or page.url contains item.url | append: '/' %}{% assign is_active = true %}{% endif %}
+    {% endif %}
+    <a href="{{ item.url | relative_url }}"
+       class="block py-3 px-3 rounded-lg transition-all border-b border-zinc-900 last:border-b-0 {% if is_active %}nav-active{% else %}text-zinc-400 nav-link-idle{% endif %}">
+      {{ item.title }}
+    </a>
+    {% endfor %}
+
+    <a href="{{ site.github_repo }}" target="_blank"
+       class="block py-3 text-forge-400 font-mono text-sm">GitHub →</a>
+  </div>
+  {% endif %}
+</header>
+
+{% if page.layout == 'doc' %}
+<!-- Mobile sidebar overlay (doc pages only) -->
+<div id="mobile-overlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden opacity-0 transition-opacity duration-300"></div>
+
+<!-- Mobile sidebar (doc pages only) -->
+<aside id="mobile-sidebar" class="fixed top-0 left-0 bottom-0 w-72 z-50 lg:hidden bg-zinc-950 border-r border-zinc-800 transition-transform duration-300 overflow-y-auto" style="transform: translateX(-100%)">
+  <div class="h-16 flex items-center justify-between px-5 border-b border-zinc-800">
+    <a href="{{ '/' | relative_url }}" class="flex items-center gap-3">
+      <div class="w-8 h-8 nav-active rounded-full flex items-center justify-center font-mono font-bold text-forge-800 text-sm">DM</div>
+      <span class="font-display font-bold text-lg tracking-tight">{{ site.title }}</span>
+    </a>
+    <button id="mobile-sidebar-close" class="p-2 rounded-lg hover:bg-zinc-800 transition-colors text-zinc-400">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="px-4 py-5">
+    <!-- Main nav links -->
+    <div class="mb-6">
+      <p class="px-2 font-display font-semibold text-xs uppercase tracking-widest mb-2 sidebar-section-title">Navigation</p>
+      <ul class="space-y-0.5">
+        {% for item in site.data.nav.main %}
+        {% assign is_active = false %}
+        {% if item.url == '/' %}
+          {% if page.url == '/' %}{% assign is_active = true %}{% endif %}
+        {% elsif item.url == '/docs' %}
+          {% if page.url contains '/docs' %}{% assign is_active = true %}{% endif %}
+        {% elsif item.url == '/blog' %}
+          {% if page.url contains '/blog' or page.layout == 'post' %}{% assign is_active = true %}{% endif %}
+        {% elsif item.url == '/projects' %}
+          {% if page.url contains '/projects' and page.url != '/projects/din-relay-module/' and page.url != '/projects/din-relay-module' %}{% assign is_active = true %}{% endif %}
+        {% else %}
+          {% if page.url == item.url or page.url == item.url | append: '/' or page.url contains item.url | append: '/' %}{% assign is_active = true %}{% endif %}
+        {% endif %}
+        <li>
+          <a href="{{ item.url | relative_url }}"
+             class="sidebar-link block px-3 py-1.5 rounded-lg text-sm transition-colors {% if is_active %}sidebar-link--active{% endif %}">
+            {{ item.title }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- Docs navigation -->
+    {% for section in site.data.nav.docs_sidebar %}
+    <div class="mb-5">
+      <p class="px-2 font-display font-semibold text-xs uppercase tracking-widest mb-2 sidebar-section-title">{{ section.title }}</p>
+      <ul class="space-y-0.5">
+        {% for item in section.items %}
+        {% assign item_trail = item.url | append: '/' %}
+        {% assign is_current = false %}
+        {% if page.url == item.url or page.url == item_trail %}{% assign is_current = true %}{% endif %}
+        <li>
+          <a href="{{ item.url | relative_url }}"
+             class="sidebar-link block px-3 py-1.5 rounded-lg text-sm transition-colors {% if is_current %}sidebar-link--active{% endif %}">
+            {{ item.title }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+
+    <!-- GitHub link -->
+    <div class="mt-4 pt-4 border-t border-zinc-800">
+      <a href="{{ site.github_repo }}" target="_blank"
+         class="sidebar-link flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition-colors">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+</aside>
+{% endif %}

@@ -1,0 +1,153 @@
+---
+layout: default
+---
+<div class="min-h-screen pt-16">
+
+  <!-- Left sidebar — docs nav (lg+) -->
+  <aside class="hidden lg:flex lg:flex-col w-64 fixed top-16 left-0 bottom-0 border-r border-zinc-800 px-4 py-10 overflow-y-auto z-40 bg-zinc-950">
+    <div class="mb-6 px-2">
+      <span class="text-xs font-mono text-zinc-500 uppercase tracking-widest">Documentation</span>
+    </div>
+
+    {% for section in site.data.nav.docs_sidebar %}
+    <div class="mb-5">
+      <p class="px-2 font-display font-semibold text-xs uppercase tracking-widest mb-2 sidebar-section-title">{{ section.title }}</p>
+      <ul class="space-y-0.5">
+        {% for item in section.items %}
+        {% assign item_trail = item.url | append: '/' %}
+        {% assign is_current = false %}
+        {% if page.url == item.url or page.url == item_trail %}{% assign is_current = true %}{% endif %}
+        <li>
+          <a href="{{ item.url | relative_url }}"
+             class="sidebar-link block px-3 py-1.5 rounded-lg text-sm transition-colors {% if is_current %}sidebar-link--active{% endif %}">
+            {{ item.title }}
+          </a>
+          {% if is_current %}
+          <ul id="sidebar-headings" class="mt-0.5 mb-1 space-y-0"></ul>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </aside>
+
+  <!-- Main content — offset for fixed sidebar on lg+ -->
+  <div class="min-w-0 px-6 lg:pl-80 lg:pr-16 xl:pr-24 py-10">
+
+    <!-- Breadcrumb -->
+    <nav class="text-sm font-mono text-zinc-500 mb-8">
+      <a href="/docs" class="hover:text-forge-400 transition-colors">Docs</a>
+      <span class="mx-2">/</span>
+      <span class="breadcrumb-current text-zinc-300">{{ page.title }}</span>
+    </nav>
+
+    <!-- Article — max-w removed so it fills available space -->
+    <article class="prose prose-invert prose-zinc max-w-none
+      prose-headings:font-display
+      prose-code:font-mono prose-code:text-forge-400
+      prose-a:text-forge-400 prose-a:no-underline hover:prose-a:underline
+      prose-blockquote:border-forge-600 prose-blockquote:bg-zinc-900 prose-blockquote:rounded-r-xl">
+      <h1>{{ page.title }}</h1>
+      {% if page.description %}<p class="lead">{{ page.description }}</p>{% endif %}
+      {{ content }}
+    </article>
+
+    <!-- Prev/Next -->
+    <div class="flex justify-between mt-16 pt-8 border-t border-zinc-800">
+      {% if page.prev_doc %}
+      <a href="{{ page.prev_doc.url }}" class="text-sm text-zinc-400 hover:text-forge-400 transition-colors">
+        ← {{ page.prev_doc.title }}
+      </a>
+      {% else %}<div></div>{% endif %}
+      {% if page.next_doc %}
+      <a href="{{ page.next_doc.url }}" class="text-sm text-zinc-400 hover:text-forge-400 transition-colors">
+        {{ page.next_doc.title }} →
+      </a>
+      {% endif %}
+    </div>
+
+    <!-- Extra whitespace so the last heading can scroll to the top -->
+    <div class="min-h-[40vh]"></div>
+
+  </div>
+
+</div>
+
+<script>
+  // ── Scroll active sidebar link into view ──
+  document.addEventListener('DOMContentLoaded', () => {
+    const activeLink = document.querySelector('aside .sidebar-link--active');
+    if (activeLink) {
+      activeLink.scrollIntoView({ block: 'center', behavior: 'instant' });
+    }
+  });
+
+  // ── Inject page headings + scroll-spy ──
+  document.addEventListener('DOMContentLoaded', () => {
+    const article     = document.querySelector('article');
+    const sidebarList = document.getElementById('sidebar-headings');
+    const mobileSec   = document.getElementById('mobile-headings-section');
+    const mobileList  = document.getElementById('mobile-headings-list');
+    if (!article) return;
+
+    const headings = Array.from(article.querySelectorAll('h2, h3'));
+    if (!headings.length) return;
+
+    // Ensure IDs
+    headings.forEach(h => {
+      if (!h.id) {
+        h.id = h.textContent.trim().toLowerCase()
+          .replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+      }
+    });
+
+    // Build a sidebar heading link
+    const makeLink = (h) => {
+      const a = document.createElement('a');
+      a.href = '#' + h.id;
+      a.textContent = h.textContent;
+      a.dataset.headingId = h.id;
+      a.className = 'sidebar-heading-link' + (h.tagName === 'H3' ? ' pl-5' : ' pl-3');
+      return a;
+    };
+
+    // Populate desktop sidebar
+    const sidebarLinks = [];
+    if (sidebarList) {
+      headings.forEach(h => {
+        const li = document.createElement('li');
+        const a = makeLink(h);
+        sidebarLinks.push(a);
+        li.appendChild(a);
+        sidebarList.appendChild(li);
+      });
+    }
+
+    // Populate mobile
+    if (mobileList && mobileSec) {
+      headings.forEach(h => {
+        const li = document.createElement('li');
+        li.appendChild(makeLink(h));
+        mobileList.appendChild(li);
+      });
+      mobileSec.classList.remove('hidden');
+    }
+
+    // ── Scroll-spy: highlight current heading in sidebar ──
+    if (!sidebarLinks.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const link = sidebarLinks.find(a => a.dataset.headingId === entry.target.id);
+        if (!link) return;
+        if (entry.isIntersecting) {
+          sidebarLinks.forEach(a => a.classList.remove('is-active'));
+          link.classList.add('is-active');
+        }
+      });
+    }, { rootMargin: '-80px 0px -70% 0px', threshold: 0 });
+
+    headings.forEach(h => observer.observe(h));
+  });
+</script>

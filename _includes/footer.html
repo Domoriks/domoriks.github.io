@@ -1,0 +1,59 @@
+<footer class="border-t border-zinc-800 bg-zinc-950 mt-20">
+  <div class="max-w-7xl mx-auto px-6 py-16">
+    <div class="grid md:grid-cols-4 gap-10 mb-12">
+
+      <!-- Brand -->
+      <div class="md:col-span-1">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-8 h-8 bg-forge-500 rounded-lg flex items-center justify-center font-mono font-bold text-zinc-950 text-sm">DM</div>
+          <span class="font-display font-bold text-lg">{{ site.title }}</span>
+        </div>
+        <p class="text-zinc-500 text-sm leading-relaxed">Open source decentralised home automation. DIN-rail hardware, RS-485 Modbus RTU, Home Assistant native.</p>
+      </div>
+
+      <!-- Hardware -->
+      <div>
+        <p class="font-display font-semibold text-sm mb-4 text-zinc-300">Hardware</p>
+        <ul class="space-y-2">
+          <li><a href="/projects/din-relay-module" class="text-zinc-500 hover:text-forge-400 transition-colors text-sm">DIN Relay Module</a></li>
+          <li><a href="/projects/switch-module" class="text-zinc-500 hover:text-forge-400 transition-colors text-sm">Compact Switch Module</a></li>
+          <li><a href="/docs/pcb-fabrication" class="text-zinc-500 hover:text-forge-400 transition-colors text-sm">PCB Fabrication</a></li>
+          <li><a href="/docs/wiring" class="text-zinc-500 hover:text-forge-400 transition-colors text-sm">Wiring Guide</a></li>
+        </ul>
+      </div>
+
+      <!-- Software -->
+      <div>
+        <p class="font-display font-semibold text-sm mb-4 text-zinc-300">Software</p>
+        <ul class="space-y-2">
+          <li><a href="/projects/ha-integration" class="text-zinc-500 hover:text-forge-400 transition-colors text-sm">HA Integration</a></li>
+          <li><a href="/projects/configurator" class="text-zinc-500 hover:text-forge-400 transition-colors text-sm">Configurator</a></li>
+          <li><a href="/docs/firmware" class="text-zinc-500 hover:text-forge-400 transition-colors text-sm">Firmware</a></li>
+          <li><a href="/projects" class="text-forge-400 text-sm">All projects →</a></li>
+        </ul>
+      </div>
+
+      <!-- Community -->
+      <div>
+        <p class="font-display font-semibold text-sm mb-4 text-zinc-300">Community</p>
+        <ul class="space-y-2">
+          <li><a href="{{ site.github_repo }}" target="_blank" class="text-zinc-500 hover:text-forge-400 transition-colors text-sm">GitHub</a></li>
+          <li><a href="{{ site.github_repo }}/discussions" target="_blank" class="text-zinc-500 hover:text-forge-400 transition-colors text-sm">Discussions</a></li>
+          <li><a href="/blog" class="text-zinc-500 hover:text-forge-400 transition-colors text-sm">Blog</a></li>
+          <li><a href="/docs/contributing" class="text-zinc-500 hover:text-forge-400 transition-colors text-sm">Contributing</a></li>
+          <li><a href="/feed.xml" class="text-zinc-500 hover:text-forge-400 transition-colors text-sm">RSS Feed</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="pt-8 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-zinc-600 text-sm font-mono">© {{ site.time | date: '%Y' }} {{ site.title }} contributors. MIT licence.</p>
+      <div class="flex gap-6">
+        <a href="{{ site.github_repo }}" target="_blank" class="text-zinc-600 hover:text-forge-400 transition-colors" aria-label="GitHub">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

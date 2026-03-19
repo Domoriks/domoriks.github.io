@@ -1,0 +1,15 @@
+- label: "Max devices on one bus"
+  value: "32"
+  icon: "📡"
+
+- label: "Hardware modules"
+  value: "2"
+  icon: "📦"
+
+- label: "HA Integration"
+  value: "v1.0"
+  icon: "🏠"
+
+- label: "License"
+  value: "MIT"
+  icon: "🔓"

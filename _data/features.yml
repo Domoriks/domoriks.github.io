@@ -1,0 +1,29 @@
+- title: "DIN-Rail Hardware"
+  icon: "⚡"
+  description: "Custom PCB modules in standard DIN-rail format. Relay output boards and compact switch input modules designed for any electrical cabinet."
+  image: "https://picsum.photos/400/220?random=11"
+
+- title: "RS-485 Bus"
+  icon: "🔗"
+  description: "Reliable Modbus RTU over RS-485. Daisy-chain modules across an entire building on a single two-wire bus — no IP networking required."
+  image: "https://picsum.photos/400/220?random=22"
+
+- title: "Home Assistant Native"
+  icon: "🏠"
+  description: "First-class Home Assistant integration. Auto-discovery, UI-only setup with zero YAML, live bus diagnostics, and raw command access."
+  image: "https://picsum.photos/400/220?random=33"
+
+- title: "No Cloud. No Lock-in."
+  icon: "🔒"
+  description: "Everything runs locally. No vendor account, no subscription, no data leaving your home. You own the hardware and the software."
+  image: "https://picsum.photos/400/220?random=44"
+
+- title: "Regular Switches Work"
+  icon: "💡"
+  description: "Compact switch input modules let your existing wall switches and push buttons work exactly as before — now they also talk to the bus."
+  image: "https://picsum.photos/400/220?random=55"
+
+- title: "Open Everything"
+  icon: "🔓"
+  description: "KiCad schematics, Gerber files, firmware source, and integration code — all MIT licensed and community-maintained."
+  image: "https://picsum.photos/400/220?random=66"
