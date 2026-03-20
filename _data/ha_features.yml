@@ -1,0 +1,6 @@
+- "Switch entities for every relay output"
+- "Live bus activity: last RX, last TX, bus status"
+- "Per-output naming and icon in the UI"
+- "Raw command entity + button for automation"
+- "Diagnostics download per config entry"
+- "Duplicate prevention per serial port"

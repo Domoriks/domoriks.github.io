@@ -1,4 +1,4 @@
-# Domoriks — Open Source Decentralised Home Automation
+# Domoriks.com
 
 This repository is the source for the Domoriks project website, built with Jekyll.
 

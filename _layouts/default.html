@@ -6,6 +6,9 @@
   <title>{% if page.title %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }} — {{ site.tagline }}{% endif %}</title>
   <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}" />
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="{{ '/assets/images/logo_border.png' | relative_url }}" />
+
   <!-- SEO -->
   {% seo %}
   {% feed_meta %}
@@ -14,6 +17,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- Theme init — runs before paint to prevent flash of wrong theme -->
+  <script>
+    (function() {
+      var t = localStorage.getItem('theme') || 'dark';
+      var h = document.documentElement;
+      if (t === 'light') {
+        h.classList.add('light');
+        h.setAttribute('data-theme', 'light');
+      } else {
+        h.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>

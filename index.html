@@ -4,104 +4,38 @@ title: Home
 ---
 
 <!-- ═══════ HERO ═══════ -->
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 md:pt-16">
+
+<section id="hero-section" class="relative flex items-center justify-center overflow-hidden">
 
   <!-- Background -->
-  <div class="absolute inset-x-0 top-16 bottom-0 pointer-events-none" style="background-image: url('https://picsum.photos/1920/820?grayscale&blur=10&random=1'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+  <div id="hero-bg" class="absolute inset-0 pointer-events-none bg-cover bg-center bg-no-repeat">
     <div class="absolute inset-0 bg-black/40"></div>
+    <!-- Top gradient for navbar readability -->
+    <div id="hero-top-fade" class="absolute top-0 left-0 right-0 h-20 z-10 pointer-events-none"
+         style="background: linear-gradient(to bottom, rgba(9,9,11,0.85) 0%, rgba(9,9,11,0.85) 75%, transparent 100%);"></div>
     <div class="absolute top-1/4 left-1/3 w-96 h-96 bg-forge-900/25 rounded-full blur-3xl"></div>
     <div class="absolute bottom-1/3 right-1/4 w-80 h-80 bg-forge-800/15 rounded-full blur-3xl"></div>
     <div class="absolute inset-0 opacity-[0.04]" style="background-image: linear-gradient(rgba(20,184,166,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(20,184,166,0.5) 1px, transparent 1px); background-size: 48px 48px;"></div>
   </div>
 
-  <div class="relative max-w-5xl mx-auto px-6 text-center">
+  <div id="hero-content" class="relative max-w-5xl mx-auto px-6 text-center">
 
     <!-- Badge -->
-    <div class="inline-flex items-center gap-2 px-4 py-2 bg-zinc-900 border border-zinc-700 rounded-full text-sm font-mono text-forge-400 mb-8 animate-fade-in">
-      <span class="w-2 h-2 bg-forge-400 rounded-full animate-pulse"></span>
+    <div class="badge-glass inline-flex items-center gap-2 px-4 py-2 border border-zinc-700 rounded-full text-sm font-mono text-zinc-300 mb-8 animate-fade-in">
+      <span class="w-2 h-2 bg-zinc-400 rounded-full animate-pulse"></span>
       Open Hardware · Open Firmware · Local-First
     </div>
 
     <!-- Headline -->
-    <h1 class="font-display text-6xl md:text-8xl font-extrabold leading-none tracking-tight mb-8" style="animation: fadeUp 0.7s ease both;">
+    <h1 class="font-display text-6xl md:text-8xl font-extrabold leading-none tracking-tight mb-8"
+        style="animation: fadeUp 0.7s ease both;">
       <span class="block text-always-white">Domoriks.</span>
-      <span class="block text-transparent bg-clip-text hero-accent text-4xl pb-8">Home automation a different way</span>
+      <span class="block text-transparent bg-clip-text hero-accent text-3xl pb-8">Home automation a different way</span>
     </h1>
-    
-    <p class="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed mb-10" style="animation: fadeUp 0.7s 0.1s ease both; opacity:0;">
-      Decentralised DIN-rail modules communicating over RS-485 Modbus RTU. Plug into Home Assistant with zero YAML. No cloud. No subscription. Your house, your data.
-    </p>
-
-    <div class="flex flex-wrap gap-4 justify-center" style="animation: fadeUp 0.7s 0.2s ease both; opacity:0;">
-      <a href="/docs/quick-start" class="px-8 py-3.5 bg-forge-600 hover:bg-forge-500 rounded-xl font-display font-semibold transition-colors shadow-lg shadow-forge-900/50">
-        Get Started
-      </a>
-      <a href="/projects" class="px-8 py-3.5 border border-zinc-700 hover:border-zinc-500 rounded-xl font-display font-semibold transition-colors">
-        Browse Projects
-      </a>
-      <a href="{{ site.github_repo }}" target="_blank" class="px-8 py-3.5 bg-zinc-800 hover:bg-zinc-700 rounded-xl font-mono text-sm transition-colors flex items-center gap-2">
-        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-        GitHub
-      </a>
-    </div>
-
-    <!-- Hero visual: architecture diagram placeholder -->
-    <div class="mt-16 relative" style="animation: fadeUp 0.7s 0.35s ease both; opacity:0;">
-      <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 to-transparent z-10 pointer-events-none rounded-2xl" style="top:60%"></div>
-      <!-- Architecture overview inline SVG placeholder -->
-      <div class="w-full bg-zinc-900 border border-zinc-800 rounded-2xl p-8 md:p-12">
-        <p class="text-zinc-600 font-mono text-xs mb-6 uppercase tracking-widest">System Architecture</p>
-        <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-0">
-          <!-- Wall switches -->
-          <div class="flex flex-col items-center gap-2">
-            <div class="w-20 h-16 bg-zinc-800 border border-zinc-700 rounded-xl flex items-center justify-center">
-              <span class="text-2xl">💡</span>
-            </div>
-            <span class="text-zinc-500 text-xs font-mono">Wall Switches</span>
-          </div>
-          <div class="text-zinc-700 font-mono text-sm md:mx-2">──┐</div>
-          <!-- Switch module -->
-          <div class="flex flex-col items-center gap-2">
-            <div class="w-24 h-16 bg-zinc-800 border border-forge-800 rounded-xl flex items-center justify-center">
-              <span class="text-zinc-300 font-mono text-xs text-center leading-tight">Switch<br/>Module</span>
-            </div>
-            <span class="text-forge-500 text-xs font-mono">DIN Module</span>
-          </div>
-          <!-- RS-485 bus -->
-          <div class="hidden md:flex flex-col items-center mx-2">
-            <div class="h-0.5 w-16 bg-gradient-to-r from-forge-700 to-forge-500"></div>
-            <span class="text-forge-600 text-xs font-mono mt-1">RS-485</span>
-          </div>
-          <!-- Relay module -->
-          <div class="flex flex-col items-center gap-2">
-            <div class="w-24 h-16 bg-zinc-800 border border-forge-800 rounded-xl flex items-center justify-center">
-              <span class="text-zinc-300 font-mono text-xs text-center leading-tight">Relay<br/>Module</span>
-            </div>
-            <span class="text-forge-500 text-xs font-mono">DIN Module</span>
-          </div>
-          <div class="text-zinc-700 font-mono text-sm md:mx-2">──┤</div>
-          <!-- USB Gateway -->
-          <div class="flex flex-col items-center gap-2">
-            <div class="w-20 h-16 bg-zinc-800 border border-zinc-600 rounded-xl flex items-center justify-center">
-              <span class="text-zinc-300 font-mono text-xs">USB/RS485</span>
-            </div>
-            <span class="text-zinc-500 text-xs font-mono">Gateway</span>
-          </div>
-          <div class="text-zinc-700 font-mono text-sm md:mx-2">──▶</div>
-          <!-- Home Assistant -->
-          <div class="flex flex-col items-center gap-2">
-            <div class="w-20 h-16 bg-zinc-800 border border-zinc-600 rounded-xl flex items-center justify-center">
-              <span class="text-2xl">🏠</span>
-            </div>
-            <span class="text-zinc-500 text-xs font-mono">Home Assistant</span>
-          </div>
-        </div>
-        <p class="text-zinc-700 text-xs font-mono text-center mt-6">← placeholder — replace with your own system diagram image →</p>
-      </div>
-    </div>
-
   </div>
 </section>
+
+
 
 <!-- ═══════ STATS ═══════ -->
 <section class="py-16 border-y border-zinc-800 bg-zinc-900/50">
@@ -150,7 +84,7 @@ title: Home
         <span class="text-forge-400 font-mono text-sm uppercase tracking-widest">Open Source</span>
         <h2 class="font-display text-4xl md:text-5xl font-extrabold mt-2">All Projects</h2>
       </div>
-      <a href="/projects" class="text-forge-400 font-mono text-sm hover:text-forge-300 transition-colors shrink-0">View all →</a>
+      <a href="{{ '/projects' | relative_url }}" class="text-forge-400 font-mono text-sm hover:text-forge-300 transition-colors shrink-0">View all →</a>
     </div>
     <div class="grid md:grid-cols-3 gap-6">
       {% for project in site.projects limit:6 %}
@@ -169,15 +103,14 @@ title: Home
         <h2 class="font-display text-4xl font-extrabold mt-2 mb-4">UI setup. Zero YAML.</h2>
         <p class="text-zinc-400 leading-relaxed mb-6">The Domoriks Home Assistant integration connects over USB or RS-485, auto-discovers your modules, and gives you a live dashboard in minutes — no config file editing required.</p>
         <ul class="space-y-3 mb-8">
-          {% assign ha_features = "Switch entities for every relay output|Live bus activity: last RX, last TX, bus status|Per-output naming and icon in the UI|Raw command entity + button for automation|Diagnostics download per config entry|Duplicate prevention per serial port" | split: "|" %}
-          {% for f in ha_features %}
+          {% for f in site.data.ha_features %}
           <li class="flex items-start gap-3 text-sm text-zinc-400">
             <span class="text-forge-400 mt-0.5 shrink-0">✓</span>
             {{ f }}
           </li>
           {% endfor %}
         </ul>
-        <a href="/projects/ha-integration" class="inline-flex items-center gap-2 px-6 py-3 bg-forge-600 hover:bg-forge-500 rounded-xl font-display font-semibold transition-colors">
+        <a href="{{ '/projects/ha-integration' | relative_url }}" class="inline-flex items-center gap-2 px-6 py-3 bg-forge-600 hover:bg-forge-500 rounded-xl font-mono font-semibold transition-colors">
           View Integration →
         </a>
       </div>
@@ -206,14 +139,13 @@ title: Home
         <h2 class="font-display text-4xl font-extrabold mt-2 mb-4">DIN-rail native. Cabinet ready.</h2>
         <p class="text-zinc-400 leading-relaxed mb-6">Custom KiCad PCBs in standard DIN-rail format. Designed to live inside your existing electrical cabinet alongside breakers and distribution blocks.</p>
         <div class="grid grid-cols-2 gap-4 mb-8">
-          {% assign hw_specs = "8-channel relay output|Compact switch input|RS-485 Modbus RTU|24V DC powered|Open KiCad source|Gerbers included" | split: "|" %}
-          {% for spec in hw_specs %}
+          {% for spec in site.data.hw_specs %}
           <div class="bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3">
             <p class="text-zinc-300 text-sm font-mono">{{ spec }}</p>
           </div>
           {% endfor %}
         </div>
-        <a href="/projects/din-relay-module" class="inline-flex items-center gap-2 px-6 py-3 border border-zinc-700 hover:border-forge-600 rounded-xl font-display font-semibold transition-colors">
+        <a href="{{ '/projects/din-relay-module' | relative_url }}" class="inline-flex items-center gap-2 px-6 py-3 border border-zinc-700 hover:border-forge-600 rounded-xl font-display font-semibold transition-colors">
           Hardware Details →
         </a>
       </div>
@@ -231,7 +163,7 @@ title: Home
       <p class="text-zinc-400 max-w-xl mx-auto mb-8">{{ site.docs_description }}</p>
       <div class="flex flex-wrap gap-4 justify-center">
         <a href="{{ site.docs_url }}" class="px-8 py-3.5 bg-forge-600 hover:bg-forge-500 rounded-xl font-display font-semibold transition-colors">Read the Docs</a>
-        <a href="{{ site.github_repo }}" target="_blank" class="px-8 py-3.5 border border-zinc-700 hover:border-zinc-500 rounded-xl font-display font-semibold transition-colors">View on GitHub</a>
+        <a href="{{ site.github_repo }}" target="_blank" rel="noopener" class="px-8 py-3.5 border border-zinc-700 hover:border-zinc-500 rounded-xl font-display font-semibold transition-colors">View on GitHub</a>
       </div>
     </div>
   </div>
@@ -245,7 +177,7 @@ title: Home
         <span class="text-forge-400 font-mono text-sm uppercase tracking-widest">Latest</span>
         <h2 class="font-display text-4xl md:text-5xl font-extrabold mt-2">From the Blog</h2>
       </div>
-      <a href="/blog" class="text-forge-400 font-mono text-sm hover:text-forge-300 transition-colors shrink-0">All posts →</a>
+      <a href="{{ '/blog' | relative_url }}" class="text-forge-400 font-mono text-sm hover:text-forge-300 transition-colors shrink-0">All posts →</a>
     </div>
     <div class="grid md:grid-cols-3 gap-6">
       {% for post in site.posts limit:3 %}
@@ -280,7 +212,7 @@ title: Home
     <p class="text-zinc-400 mb-8">{{ site.contact_text }}</p>
     <div class="flex flex-wrap gap-4 justify-center">
       <a href="mailto:{{ site.email }}" class="px-8 py-3.5 bg-forge-600 hover:bg-forge-500 rounded-xl font-display font-semibold transition-colors">Send Email</a>
-      <a href="{{ site.github_repo }}/discussions" target="_blank" class="px-8 py-3.5 border border-zinc-700 hover:border-zinc-500 rounded-xl font-display font-semibold transition-colors">GitHub Discussions</a>
+      <a href="{{ site.github_repo }}/discussions" target="_blank" rel="noopener" class="px-8 py-3.5 border border-zinc-700 hover:border-zinc-500 rounded-xl font-display font-semibold transition-colors">GitHub Discussions</a>
     </div>
   </div>
 </section>

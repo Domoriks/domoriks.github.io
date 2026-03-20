@@ -131,6 +131,6 @@ if (searchInput) {
 
 // ── Update navbar with keyboard shortcut hint
 if (searchTrigger) {
-  const isMac = navigator.platform.toUpperCase().includes('MAC');
+  const isMac = (navigator.userAgentData?.platform || navigator.userAgent).toLowerCase().includes('mac');
   searchTrigger.title = isMac ? '⌘K' : 'Ctrl+K';
 }

@@ -43,19 +43,4 @@ permalink: /projects/
 
 </div>
 
-<script>
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => {
-      b.classList.remove('active', 'border-forge-600', 'text-forge-400');
-      b.classList.add('border-zinc-700', 'text-zinc-400');
-    });
-    btn.classList.add('active', 'border-forge-600', 'text-forge-400');
-    btn.classList.remove('border-zinc-700', 'text-zinc-400');
-    const filter = btn.dataset.filter;
-    document.querySelectorAll('.project-item').forEach(item => {
-      item.style.display = (filter === 'all' || item.dataset.tags.includes(filter)) ? '' : 'none';
-    });
-  });
-});
-</script>
+

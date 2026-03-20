@@ -1,14 +1,14 @@
 main:
   - title: "Home"
     url: "/"
-  - title: "Hardware"
-    url: "/projects/din-relay-module"
   - title: "Docs"
     url: "/docs"
   - title: "Blog"
     url: "/blog"
   - title: "Other projects"
     url: "/projects"
+  - title: "Contact"
+    url: "/contact"
 
 docs_sidebar:
   - title: "Getting Started"

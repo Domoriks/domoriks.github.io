@@ -10,44 +10,23 @@ if (navbar) {
   onScroll();
 }
 
-// ── Mobile menu toggle (sidebar on doc pages, dropdown otherwise)
+// ── Mobile menu toggle
 const mobileBtn = document.getElementById('mobile-menu-btn');
-const mobileSidebar = document.getElementById('mobile-sidebar');
-const mobileOverlay = document.getElementById('mobile-overlay');
-const mobileClose = document.getElementById('mobile-sidebar-close');
 const mobileMenu = document.getElementById('mobile-menu');
 
-if (mobileBtn) {
-  if (mobileSidebar && mobileOverlay) {
-    // Doc pages: slide-out sidebar
-    var openSidebar = function() {
-      mobileOverlay.classList.remove('hidden');
-      requestAnimationFrame(function() {
-        mobileSidebar.style.transform = 'translateX(0)';
-        mobileOverlay.style.opacity = '1';
-      });
-      document.body.style.overflow = 'hidden';
-    };
-    var closeSidebar = function() {
-      mobileSidebar.style.transform = 'translateX(-100%)';
-      mobileOverlay.style.opacity = '0';
-      document.body.style.overflow = '';
-      setTimeout(function() { mobileOverlay.classList.add('hidden'); }, 300);
-    };
-    mobileBtn.addEventListener('click', openSidebar);
-    if (mobileClose) mobileClose.addEventListener('click', closeSidebar);
-    mobileOverlay.addEventListener('click', closeSidebar);
-  } else if (mobileMenu) {
-    // Non-doc pages: simple dropdown
-    mobileBtn.addEventListener('click', function() {
-      mobileMenu.classList.toggle('hidden');
-    });
-    document.addEventListener('click', function(e) {
-      if (!mobileBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
-        mobileMenu.classList.add('hidden');
-      }
-    });
-  }
+if (mobileBtn && mobileMenu) {
+  mobileBtn.addEventListener('click', function() {
+    mobileMenu.classList.toggle('hidden');
+  });
+  document.addEventListener('click', function(e) {
+    if (!mobileBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+      mobileMenu.classList.add('hidden');
+    }
+  });
+  // Close menu when a nav link inside it is clicked
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+  });
 }
 
 // ── Dark / Light theme toggle
@@ -56,6 +35,7 @@ const iconMoon = document.getElementById('icon-moon');
 const iconSun = document.getElementById('icon-sun');
 const html = document.documentElement;
 
+// Theme already applied to <html> by inline head script — just sync body classes and icons
 const savedTheme = localStorage.getItem('theme') || 'dark';
 applyTheme(savedTheme);
 
@@ -63,15 +43,15 @@ function applyTheme(theme) {
   if (theme === 'light') {
     html.classList.add('light');
     html.setAttribute('data-theme', 'light');
-    document.body.classList.replace('bg-zinc-950', 'bg-zinc-50');
-    document.body.classList.replace('text-zinc-100', 'text-zinc-900');
+    document.body.classList.remove('bg-zinc-950', 'text-zinc-100');
+    document.body.classList.add('bg-zinc-50', 'text-zinc-900');
     if (iconMoon) iconMoon.classList.add('hidden');
     if (iconSun) iconSun.classList.remove('hidden');
   } else {
     html.classList.remove('light');
     html.setAttribute('data-theme', 'dark');
-    document.body.classList.replace('bg-zinc-50', 'bg-zinc-950');
-    document.body.classList.replace('text-zinc-900', 'text-zinc-100');
+    document.body.classList.remove('bg-zinc-50', 'text-zinc-900');
+    document.body.classList.add('bg-zinc-950', 'text-zinc-100');
     if (iconMoon) iconMoon.classList.remove('hidden');
     if (iconSun) iconSun.classList.add('hidden');
   }
@@ -105,9 +85,12 @@ if (tocContainer) {
     tocContainer.innerHTML = '<p class="font-mono text-xs text-zinc-600 uppercase tracking-widest mb-3">On this page</p>';
     const ul = document.createElement('ul');
     ul.className = 'space-y-1.5';
+    const seenSlugs = {};
     headings.forEach(h => {
       if (!h.id) {
-        h.id = h.textContent.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+        let base = h.textContent.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+        seenSlugs[base] = (seenSlugs[base] || 0) + 1;
+        h.id = seenSlugs[base] > 1 ? `${base}-${seenSlugs[base]}` : base;
       }
       const li = document.createElement('li');
       const a = document.createElement('a');
@@ -158,3 +141,48 @@ document.querySelectorAll('pre').forEach(pre => {
 document.querySelectorAll('[style*="opacity:0"]').forEach(el => {
   el.style.animationFillMode = 'forwards';
 });
+
+// ── Hero background (index page only)
+const heroBg = document.getElementById('hero-bg');
+const heroContent = document.getElementById('hero-content');
+if (heroBg && heroContent) {
+  function setHeroBackground() {
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    const url = `https://picsum.photos/${w}/${h}?blur=10&random=1`;
+    const img = new Image();
+    img.onload = function() {
+      heroBg.style.backgroundImage = `url('${url}')`;
+      heroContent.classList.add('loaded');
+    };
+    img.onerror = function() {
+      heroContent.classList.add('loaded');
+    };
+    img.src = url;
+  }
+  setHeroBackground();
+  let heroResizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(heroResizeTimer);
+    heroResizeTimer = setTimeout(setHeroBackground, 300);
+  });
+}
+
+// ── Projects tag filter (projects page only)
+const filterBtns = document.querySelectorAll('.filter-btn');
+if (filterBtns.length) {
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => {
+        b.classList.remove('active', 'border-forge-600', 'text-forge-400');
+        b.classList.add('border-zinc-700', 'text-zinc-400');
+      });
+      btn.classList.add('active', 'border-forge-600', 'text-forge-400');
+      btn.classList.remove('border-zinc-700', 'text-zinc-400');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.project-item').forEach(item => {
+        item.style.display = (filter === 'all' || item.dataset.tags.includes(filter)) ? '' : 'none';
+      });
+    });
+  });
+}

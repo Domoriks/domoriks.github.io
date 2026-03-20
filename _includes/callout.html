@@ -11,7 +11,7 @@ Types: note, warning, tip, danger
   {% elsif include.type == 'tip' %}border-forge-300 bg-forge-800/50
   {% elsif include.type == 'danger' %}border-red-400 bg-red-800/50
   {% else %}border-blue-400 bg-blue-800/50{% endif %}">
-  <p class="font-display font-semibold text-sm mb-1
+  <p class="font-mono font-semibold text-sm mb-1
     {% if include.type == 'warning' %}text-yellow-200
     {% elsif include.type == 'tip' %}text-forge-200
     {% elsif include.type == 'danger' %}text-red-200
