@@ -2,7 +2,7 @@
 title: "Dynamic EV Charging"
 description: "Home Assistant integration for dynamic EV charging control based on live electricity meter power and monthly demand budget. Prevents new demand peaks to keep your capacity tariff low — built for Belgian grid tariffs."
 image: "https://picsum.photos/800/400?random=308"
-tags: ["Home Assistant", "EV", "Belgium", "Python"]
+tags: ["Other", "Home Assistant", "EV", "Belgium", "Python"]
 github: "https://github.com/domoriks/ha-dynamic-ev"
 demo: ""
 docs: ""

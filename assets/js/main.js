@@ -56,6 +56,16 @@ function applyTheme(theme) {
     if (iconSun) iconSun.classList.add('hidden');
   }
   localStorage.setItem('theme', theme);
+
+  // If the hero background setter exists, update it when the theme changes.
+  if (typeof setHeroBackground === 'function') {
+    try {
+      setHeroBackground();
+    } catch (e) {
+      // ignore errors from background update
+    }
+  }
+
 }
 
 if (themeToggle) {
@@ -147,30 +157,64 @@ const heroBg = document.getElementById('hero-bg');
 const heroContent = document.getElementById('hero-content');
 if (heroBg && heroContent) {
   function setHeroBackground() {
-    const w = window.innerWidth;
-    const h = window.innerHeight;
-    const url = `https://picsum.photos/${w}/${h}?blur=10&random=1`;
+    const theme = html.getAttribute('data-theme') || 'dark';
+    const url = theme === 'light' ? 'assets/images/hero_image_light.png' : 'assets/images/hero_image.png';
     const img = new Image();
     img.onload = function() {
       heroBg.style.backgroundImage = `url('${url}')`;
+      heroBg.style.backgroundPosition = 'center calc(50% + 40px)';
       heroContent.classList.add('loaded');
     };
-    img.onerror = function() {
-      heroContent.classList.add('loaded');
-    };
+    img.onerror = function() { heroContent.classList.add('loaded'); };
     img.src = url;
   }
+
   setHeroBackground();
-  let heroResizeTimer;
-  window.addEventListener('resize', function() {
-    clearTimeout(heroResizeTimer);
-    heroResizeTimer = setTimeout(setHeroBackground, 300);
-  });
 }
 
 // ── Projects tag filter (projects page only)
-const filterBtns = document.querySelectorAll('.filter-btn');
-if (filterBtns.length) {
+(function() {
+  const filterBar = document.getElementById('filter-bar');
+
+  function parseDataTags(raw) {
+    const s = (raw || '').toString().trim();
+    if (!s) return [];
+    if (s.startsWith('[') && s.endsWith(']')) {
+      try {
+        const parsed = JSON.parse(s);
+        return Array.isArray(parsed) ? parsed.map(t => String(t).trim()).filter(Boolean) : [];
+      } catch (e) {
+        return s.slice(1, -1).split(',').map(t => t.trim().replace(/^['"]|['"]$/g, '')).filter(Boolean);
+      }
+    }
+    return s.split(',').map(t => t.trim()).filter(Boolean);
+  }
+
+  // Build filter buttons from project items if a filter bar exists
+  if (filterBar) {
+    const items = document.querySelectorAll('.project-item');
+    const tagMap = new Map();
+    items.forEach(item => {
+      parseDataTags(item.dataset.tags).forEach(t => {
+        const key = t.toLowerCase();
+        if (!tagMap.has(key)) tagMap.set(key, t);
+      });
+    });
+
+    tagMap.forEach((display, key) => {
+      if (key === 'other') return;
+      if (filterBar.querySelector(`[data-filter="${key}"]`)) return;
+      const btn = document.createElement('button');
+      btn.className = 'filter-btn px-4 py-2 rounded-xl font-mono text-sm border transition-colors border-zinc-700 text-zinc-400';
+      btn.dataset.filter = key;
+      btn.textContent = display;
+      filterBar.appendChild(btn);
+    });
+  }
+
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  if (!filterBtns.length) return;
+
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       filterBtns.forEach(b => {
@@ -179,10 +223,11 @@ if (filterBtns.length) {
       });
       btn.classList.add('active', 'border-forge-600', 'text-forge-400');
       btn.classList.remove('border-zinc-700', 'text-zinc-400');
-      const filter = btn.dataset.filter;
+      const normalizedFilter = (btn.dataset.filter || 'all').trim().toLowerCase();
       document.querySelectorAll('.project-item').forEach(item => {
-        item.style.display = (filter === 'all' || item.dataset.tags.includes(filter)) ? '' : 'none';
+        const tags = parseDataTags(item.dataset.tags).map(t => t.toLowerCase());
+        item.style.display = (normalizedFilter === 'all' || tags.includes(normalizedFilter)) ? '' : 'none';
       });
     });
   });
-}
+})();

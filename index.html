@@ -9,7 +9,7 @@ title: Home
 
   <!-- Background -->
   <div id="hero-bg" class="absolute inset-0 pointer-events-none bg-cover bg-center bg-no-repeat">
-    <div class="absolute inset-0 bg-black/40"></div>
+    <div class="absolute inset-0"></div>
     <!-- Top gradient for navbar readability -->
     <div id="hero-top-fade" class="absolute top-0 left-0 right-0 h-20 z-10 pointer-events-none"
          style="background: linear-gradient(to bottom, rgba(9,9,11,0.85) 0%, rgba(9,9,11,0.85) 75%, transparent 100%);"></div>
@@ -84,7 +84,7 @@ title: Home
         <span class="text-forge-400 font-mono text-sm uppercase tracking-widest">Open Source</span>
         <h2 class="font-display text-4xl md:text-5xl font-extrabold mt-2">All Projects</h2>
       </div>
-      <a href="{{ '/projects' | relative_url }}" class="text-forge-400 font-mono text-sm hover:text-forge-300 transition-colors shrink-0">View all →</a>
+      <a href="{{ '/otherprojects' | relative_url }}" class="text-forge-400 font-mono text-sm hover:text-forge-300 transition-colors shrink-0">View all →</a>
     </div>
     <div class="grid md:grid-cols-3 gap-6">
       {% for project in site.projects limit:6 %}
@@ -129,7 +129,7 @@ title: Home
   <div class="max-w-7xl mx-auto px-6">
     <div class="grid md:grid-cols-2 gap-12 items-center">
       <div class="reveal order-2 md:order-1 bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
-        <img src="https://picsum.photos/700/450?random=88" alt="DIN Relay Module PCB" class="w-full h-72 object-cover" loading="lazy" />
+        <img src="{{ '/assets/images/hero_image.png' | relative_url }}" alt="DIN Relay Module PCB" class="w-full h-72 object-cover" loading="lazy" />
         <div class="p-4">
           <p class="text-zinc-600 text-xs font-mono text-center">← placeholder: replace with PCB render or photo →</p>
         </div>

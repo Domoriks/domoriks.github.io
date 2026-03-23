@@ -2,7 +2,7 @@
 title: "Peblar HA Integration"
 description: "Home Assistant custom integration for local monitoring and control of Peblar EV chargers via the built-in REST API. No cloud — all communication is directly on your local network."
 image: "https://picsum.photos/800/400?random=307"
-tags: ["Home Assistant", "EV", "Python"]
+tags: ["Other", "Home Assistant", "EV", "Python"]
 github: "https://github.com/domoriks/ha-peblar"
 demo: ""
 docs: ""

@@ -17,7 +17,7 @@
           {% assign is_active = true %}
         {% elsif item.url == '/blog' and page.layout == 'post' %}
           {% assign is_active = true %}
-        {% elsif item.url == '/projects' and page.layout == 'project' %}
+        {% elsif item.url == '/otherprojects' and page.layout == 'project' %}
           {% assign is_active = true %}
         {% endif %}
         <a href="{{ item.url | relative_url }}"
@@ -76,7 +76,7 @@
         {% assign is_active = true %}
       {% elsif item.url == '/blog' and page.layout == 'post' %}
         {% assign is_active = true %}
-      {% elsif item.url == '/projects' and page.layout == 'project' %}
+      {% elsif item.url == '/otherprojects' and page.layout == 'project' %}
         {% assign is_active = true %}
       {% endif %}
       <a href="{{ item.url | relative_url }}"

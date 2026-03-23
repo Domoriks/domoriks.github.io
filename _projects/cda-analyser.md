@@ -2,7 +2,7 @@
 title: "CdA Analyser"
 description: "Python application for analysing aerodynamic drag (CdA) from .fit cycling files. Processes ride data to calculate and visualise CdA, providing actionable insights into aerodynamic performance."
 image: "https://picsum.photos/800/400?random=306"
-tags: ["Python", "Cycling", "Data Analysis"]
+tags: ["Other", "Python", "Cycling", "Data Analysis"]
 github: "https://github.com/domoriks/cda-analyser"
 demo: ""
 docs: ""

@@ -59,7 +59,8 @@ function selectFocused() {
 async function loadIndex() {
   if (idx) return;
   try {
-    const res = await fetch('/search.json');
+    const searchUrl = searchOverlay?.dataset?.searchUrl || '/search.json';
+    const res = await fetch(searchUrl);
     searchData = await res.json();
     idx = lunr(function () {
       this.ref('url');
